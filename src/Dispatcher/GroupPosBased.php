@@ -26,7 +26,11 @@ class GroupPosBased extends RegexBasedAbstract
 
             $vars = [];
             foreach ($varNames as $varName) {
-                $vars[$varName] = $matches[$i++];
+                if (is_numeric($matches[++$i])) {
+                    $vars[$varName] = (int) $matches[$i];
+                } else {
+                    $vars[$varName] = $matches[$i];
+                }
             }
 
             return [self::FOUND, $handler, $vars];

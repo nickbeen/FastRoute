@@ -23,7 +23,11 @@ class GroupCountBased extends RegexBasedAbstract
             $vars = [];
             $i = 0;
             foreach ($varNames as $varName) {
-                $vars[$varName] = $matches[++$i];
+                if (is_numeric($matches[++$i])) {
+                    $vars[$varName] = (int) $matches[$i];
+                } else {
+                    $vars[$varName] = $matches[$i];
+                }
             }
 
             return [self::FOUND, $handler, $vars];
